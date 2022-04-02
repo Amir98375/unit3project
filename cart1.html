@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="product.css">
+   
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script type="module">
+//    import appendc from '/index.js'
+    let c  = JSON.parse(localStorage.getItem('cartitems'))
+    console.log("cartarrc",c)
+// let container = document.getElementById("container")
+
+appendc(c)
+function appendc(c){
+ console.log("c",c)
+   
+ let parent = document.getElementById('container')
+   let cartArr=JSON.parse(localStorage.getItem('cartitems'))||[]
+    c.map(function(element,i) { 
+
+        console.log(i)
+        
+        console.log("lol")
+        let div = document.createElement('div')
+        div.style.textAlign="left"
+       parent.append(div)
+
+        let img =  document.createElement('img')
+        img.setAttribute('id','imgid')
+        img.src=element.image_url
+        div.append(img)
+
+        
+        let para2 = document.createElement('p')
+        para2.innerText="title:"+element.title
+        div.append(para2)
+
+        let para = document.createElement('p')
+        para.innerText="price:"+element.price
+        div.append(para)
+
+        let para1 = document.createElement('p')
+        para1.innerText="discount price:"+element.offprice
+        div.append(para1)
+        
+        let but =document.createElement('button')
+        but.setAttribute('id','imging')
+        but.textContent='Remove'
+        but.style.marginLeft="30px"
+
+        but.addEventListener('click',function(){
+            addtocart(element)
+        })
+        div.append(but)
+
+        function addtocart(element){
+          // console.log(element)
+            c.splice(i,1);
+            console.log(c);
+            localStorage.removeItem('cartitems');
+            localStorage.setItem('cartitems',JSON.stringify(c));
+            window.location.reload();
+        }
+
+
+ 
+
+    
+    });
+}
+
+</script>
